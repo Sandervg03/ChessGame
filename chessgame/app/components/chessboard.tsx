@@ -35,8 +35,27 @@ export default function ChessBoard({
               color: piece.color === "white" ? "#ffffff" : "#000000"
             }}
               onClick={() => {
-                console.log(JSON.stringify(board.pieces))
-                const moved = engine.move(piece.coordinate, new Coordinate(1, piece.coordinate.y + 1));
+                if (piece.coordinate.y === 2) {
+                  console.log(piece)
+                  const moved = engine.move(piece.coordinate, new Coordinate(2, 4))
+                  console.log(moved)
+                  if (moved) {
+                    onMove()
+                    return
+                  }
+                }
+                if(piece.coordinate.y === 4) {
+                  console.log(piece)
+                  const moved = engine.move(piece.coordinate, new Coordinate(2, 3))
+                  console.log(moved)
+                  if (moved) {
+                    onMove()
+                    console.log("works")
+                    return
+                  }
+                }
+                
+                const moved = engine.move(piece.coordinate, new Coordinate(piece.coordinate.x, piece.coordinate.y + 1));
                 if (moved) {
                   onMove()
                   console.log(JSON.stringify(board.pieces))

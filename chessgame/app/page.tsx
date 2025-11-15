@@ -9,7 +9,7 @@ export default function Home() {
     () => new ChessEngine(new Board(
       [
         new Pawn("white", new Coordinate(2, 2)), 
-        new Pawn("black", new Coordinate(1, 3))
+        new Pawn("black", new Coordinate(1, 4))
       ]
     ))
   );
