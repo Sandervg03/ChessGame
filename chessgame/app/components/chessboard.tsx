@@ -1,4 +1,5 @@
-import { ChessEngine, Coordinate } from "ts-chess-engine";
+import { useState } from "react";
+import { ChessEngine, Coordinate, Piece } from "ts-chess-engine";
 
 export default function ChessBoard({
   engine,
@@ -15,10 +16,16 @@ export default function ChessBoard({
     )
   );
 
+  const [piecePreview, setPiecePreview] = useState<Piece>();
+  const [preview, setPreview] = useState<Coordinate[]>([]);
+
   for (let row = board.ySize; row >= 1; row--) {
     for (let col = 1; col <= board.xSize; col++) {
       const piece = pieceByCoordinate.get(`${col}-${row}`);
       const isDarkSquare = (row + col) % 2 === 0;
+      const previewDot = preview.find(
+        (coordinate) => coordinate.x === col && coordinate.y === row
+      );
 
       squares.push(
         <div
@@ -29,37 +36,26 @@ export default function ChessBoard({
             aspectRatio: "1",
             width: "100%",
           }}
+          onClick={() => {
+            if (piecePreview && previewDot) {
+              const moved = engine.move(piecePreview.coordinate, previewDot);
+              if (moved) {
+                onMove();
+              }
+            }
+          }}
         >
+          {piecePreview && previewDot ? (
+            <div className="h-6 w-6 bg-gray-500 rounded-full absolute"></div>
+          ) : null}
           {piece ? (
-            <div style={{
-              color: piece.color === "white" ? "#ffffff" : "#000000"
-            }}
+            <div
+              style={{
+                color: piece.color === "white" ? "#ffffff" : "#000000",
+              }}
               onClick={() => {
-                if (piece.coordinate.y === 2) {
-                  console.log(piece)
-                  const moved = engine.move(piece.coordinate, new Coordinate(2, 4))
-                  console.log(moved)
-                  if (moved) {
-                    onMove()
-                    return
-                  }
-                }
-                if(piece.coordinate.y === 4) {
-                  console.log(piece)
-                  const moved = engine.move(piece.coordinate, new Coordinate(2, 3))
-                  console.log(moved)
-                  if (moved) {
-                    onMove()
-                    console.log("works")
-                    return
-                  }
-                }
-                
-                const moved = engine.move(piece.coordinate, new Coordinate(piece.coordinate.x, piece.coordinate.y + 1));
-                if (moved) {
-                  onMove()
-                  console.log(JSON.stringify(board.pieces))
-                }
+                setPiecePreview(piece);
+                setPreview(engine.previewMoves(piece.coordinate));
               }}
             >
               {piece.name}
