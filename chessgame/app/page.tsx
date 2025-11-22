@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Board, ChessEngine, Coordinate, Pawn } from "ts-chess-engine";
+import { Board, ChessEngine, Coordinate, King, Pawn, PieceColor } from "ts-chess-engine";
 import ChessBoard from "./components/chessboard";
 
 export default function Home() {
   const [engine] = useState(
     () => new ChessEngine(new Board(
       [
-        new Pawn("white", new Coordinate(2, 2)), 
-        new Pawn("black", new Coordinate(1, 4))
+        new Pawn(PieceColor.white, new Coordinate(2, 3)), 
+        new Pawn(PieceColor.black, new Coordinate(2, 4)),
+        new King(PieceColor.white, new Coordinate(2, 1)),
+        new King(PieceColor.black, new Coordinate(1, 8))
       ]
     ))
   );

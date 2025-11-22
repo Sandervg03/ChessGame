@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChessEngine, Coordinate, Piece } from "ts-chess-engine";
+import { ChessEngine, Coordinate, Piece, PieceColor, PieceName } from "ts-chess-engine";
 
 export default function ChessBoard({
   engine,
@@ -51,14 +51,15 @@ export default function ChessBoard({
           {piece ? (
             <div
               style={{
-                color: piece.color === "white" ? "#ffffff" : "#000000",
+                color: piece.color === PieceColor.white ? "#ffffff" : "#000000",
+                cursor: "pointer",
               }}
               onClick={() => {
                 setPiecePreview(piece);
                 setPreview(engine.previewMoves(piece.coordinate));
               }}
             >
-              {piece.name}
+              {PieceName[piece.name]}
             </div>
           ) : null}
         </div>

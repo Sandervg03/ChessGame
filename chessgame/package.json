@@ -12,7 +12,7 @@
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "ts-chess-engine": "^1.1.2"
+    "ts-chess-engine": "^1.1.16"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
