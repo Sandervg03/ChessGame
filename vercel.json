@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd chessgame && npm run build",
+  "outputDirectory": "chessgame/.next",
+  "installCommand": "cd chessgame && npm install"
+}
