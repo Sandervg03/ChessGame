@@ -113,6 +113,9 @@ export default function ChessBoard({
                 fontSize: "4.5vmin",
               }}
               onClick={(e) => {
+                if (piece.color === engine.previousMove?.piece.color) {
+                  return;
+                }
                 e.stopPropagation();
                 setPiecePreview(piece);
                 setPreview(engine.previewMoves(piece.coordinate));
